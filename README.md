@@ -22,6 +22,42 @@ roslaunch multi_robot ur5_iiwa_baxter_display.launch
 roslaunch multi_robot joint_pos_echo.launch
 ```
 
+获取机器人关节xyz
+
+```bash
+rostopic echo /ur_pos
+```
+
+除/ur_pos外有：/iiwa_pos,/baxter_left_hand_pos,/baxter_right_hand_pos
+
+ 
+
+发送关节角到rviz中让机器人运动
+
+```bash
+rosrun multi_robot ur_joint_pos_pub.py 0 0 0 0 0 0
+```
+
+```bash
+rosrun multi_robot iiwa_joint_pos_pub.py 0 0 0 0 0 0 0
+```
+
+```bash
+rosrun multi_robot baxter_left_hand_joint_pos_pub.py 0 0 0 0 0 0 0
+```
+
+```bash
+rosrun multi_robot baxter_right_hand_joint_pos_pub.py 0 0 0 0 0 0 0
+```
+
+上面四个四个可执行文件分别对应与ur，iiwa，baxter_left_hand，baxter_right_hand的关节设置
+
+_注:若RVIZ中出现机器人闪动，请运行下面的指令_
+
+```bash
+rosnode kill /joint_state_publisher
+```
+
 
 
 #### Log
