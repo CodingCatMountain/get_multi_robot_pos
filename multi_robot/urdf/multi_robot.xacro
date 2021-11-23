@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<robot name="iiwa_ur"
+  xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <!--grey-->
+  <material name="grey">
+    <color rgba="0.5 0.5 0.5 1.0"/>
+  </material>
+  <!--black-->
+  <material name="black">
+    <color rgba="0.0 0.0 0.0  1.0"/>
+  </material>
+
+  <!--| iiwa |-->
+  <!-- Import Rviz colors -->
+  <xacro:include filename="$(find iiwa_description)/urdf/materials.xacro" />
+  <!--Import the lbr iiwa macro -->
+  <xacro:include filename="$(find iiwa_description)/urdf/iiwa7.xacro"/>
+  <xacro:arg name="hardware_interface" default="PositionJointInterface"/>
+  <xacro:arg name="robot_name" default="iiwa"/>
+  <!-- <xacro:arg name="robot_namespace" default=""/> -->
+
+  <!--| ur |-->
+  <!-- transmission -->
+  <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
+  <!-- plugin `gazebo_ros_control` has been include in iiwa_gazebo.xacro, so comment here -->
+  <!-- common stuff -->
+  <!-- <xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" /> -->
+  <!-- ur5 -->
+  <xacro:include filename="$(find ur_description)/urdf/ur5.urdf.xacro" />
+  <!-- ur5 -->
+  <xacro:ur5_robot prefix="multi_robot" joint_limited="false" transmission_hw_interface="$(arg transmission_hw_interface)" />
+
+  <!--| Baxter|-->
+  <xacro:include filename="$(find baxter_description)/urdf/baxter.urdf.xacro"/>
+
+
+  <!-- prefix of two arms -->
+  <xacro:property name="prefix_iiwa" value="$(arg robot_name)" />
+  <xacro:property name="prefix_ur" value="ur" />
+  <!-- <xacro:property name="prefix_baxter" value="baxter"/> -->
+  <link name="world" />
+
+  <!-- world_iiwa_joint -->
+  <!-- <xacro:iiwa7 hardware_interface="$(arg hardware_interface)" robot_name="$(arg robot_name)" robot_namespace="$(arg robot_namespace)" parent="world"> -->
+  <xacro:iiwa7 hardware_interface="$(arg hardware_interface)" robot_name="$(arg robot_name)"  parent="world">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+  </xacro:iiwa7>
+
+  <!-- world_ur_joint -->
+  <joint name="world_${prefix_ur}_joint" type="fixed">
+    <parent link="world" />
+    <child link="base_link" />
+    <origin xyz="1.2 0.0 0.0" rpy="0.0 0.0 ${PI}" />
+  </joint>
+
+  <!-- <joint name="world_${prefix_baxter}_joint" type="fixed">
+    <parent link="world"/>
+    <child link="torso"/>
+    <origin xyz="0.0 2.0 0.0" rpy="0 0 0"/> 
+  </joint> -->
+</robot>

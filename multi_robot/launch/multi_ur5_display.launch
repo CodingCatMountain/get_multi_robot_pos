@@ -1,0 +1,24 @@
+<launch>
+    <!--UR5 ARM-->
+    <param name="robot_description" command="$(find xacro)xacro --inorder '$(find ur_description)/urdf/ur5.urdf.xacro'"/>
+    <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
+    
+    <!--Set the position for each arm-->
+    <arg name="x" default="0.5"/>
+    <arg name="y" default="0.5"/>
+    <arg name="z" default="0.0"/>
+    <arg name="r" default="0.0"/>
+    <arg name="p" default="0.0"/>
+    <arg name="w" default="0.0"/>
+    <arg name="x2" default="-0.5"/>
+    <arg name="y2" default="-0.5"/>
+    <arg name="z2" default="0.0"/>
+    <arg name="r2" default="0.0"/>
+    <arg name="p2" default="0.0"/>
+    <arg name="w2" default="0.0"/>
+
+    <!--Spawn the ur5 robot model-->
+    <node name="ur5_1" pkg="gazebo_ros" type="spawn_model" output="screen" args="-urdf -param robot_description -model ur5_1 -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg r) -P $(arg p) -Y $(arg w)"/>
+
+    <node name="ur5_2" pkg="gazebo_ros" type="spawn_model" output="screen" args="-urdf -param robot_description -model ur5_2 -x $(arg x2) -y $(arg y2) -z $(arg z2) -R $(arg r2) -P $(arg p2) -Y $(arg w2)"/>
+</launch>

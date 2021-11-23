@@ -1,0 +1,17 @@
+
+<launch>
+    <arg name="iiwa_model" default="$(find xacro)/xacro --inorder '$(find multi_robot)/urdf/multi_ur5.urdf.xacro'"/>
+    <param name="robot_description" command="$(arg iiwa_model)"/>
+
+    <!--设置GUI参数，显示关节控制-->
+    <param name="use_gui" value="true"/>
+
+    <!--运行joint_state_publisher节点,发布机器人的关节状态-->
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+
+    <!--运行robot_state_publisher节点,发布TF-->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+
+    <!--运行rviz可视化界面-->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find multi_robot)/cfg/multi_ur5.rviz" required="true"/> 
+</launch>
