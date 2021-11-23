@@ -1,0 +1,6 @@
+<launch>
+    <node name="ur5_joint_pos_echo" pkg="multi_robot" type="ur_pos.py" respawn="false" output="screen"/>
+    <node name="iiwa_joint_pos_echo" pkg="multi_robot" type="iiwa_pos.py" respawn="false" output="screen"/>
+    <node name="baxter_left_hand_joint_pos_echo" pkg="multi_robot" type="baxter_left_hand_pos.py" respawn="false" output="screen"/>
+    <node name="baxter_right_hand_joint_pos_echo" pkg="multi_robot" type="baxter_right_hand_pos.py" respawn="false" output="screen"/>
+</launch>

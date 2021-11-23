@@ -55,6 +55,8 @@ find_package(catkin REQUIRED
 add_message_files(
    FILES
    ur5_joint_pos.msg
+   iiwa_joint_pos.msg
+   baxter_joint_pos.msg
 #   Message1.msg
 #   Message2.msg
  )
@@ -167,7 +169,7 @@ include_directories(
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
  catkin_install_python(PROGRAMS
-   script/single_ur_pos.py
+   script/ur_pos.py script/iiwa_pos.py script/baxter_left_hand_pos.py script/baxter_right_hand_pos.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 
