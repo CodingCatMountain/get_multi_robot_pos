@@ -8,4 +8,5 @@ df = pd.read_csv('iiwa_sample.csv')
 print(df.info())
 import ast
 print(type(ast.literal_eval(df['link_pos_1'][0])))
+print(df['link_pos_2'][0])
 #print(df['link_pos_1'][0])
