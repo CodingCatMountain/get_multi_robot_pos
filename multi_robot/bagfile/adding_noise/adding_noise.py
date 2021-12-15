@@ -14,7 +14,19 @@ def add_noise(pos):
     # 转换为ndarray对象
     pos_array=np.array(pos)
     pos_error = 0.1
-    pos_noise = pos_error*np.random.normal(size=pos_array.size)
+    #pos_noise = pos_error*np.random.normal(size=pos_array.size)
+    #for i in range(len(pos_noise)):
+        #if pos_noise[i]>0.1 or pos_noise[i]<0.1:
+            #pos_noise[i] = pos_error*np.random.normal()
+    pos_noise=[]
+    # 添加[-0.1,0.1]之间以正态分布获得的noise值
+    for i in range(0,3):
+        pos_noise_ = pos_error*np.random.normal()
+        while(pos_noise_<-0.1 or pos_noise_>0.1):
+            pos_noise_ = pos_error*np.random.normal()
+        pos_noise.append(pos_noise_)
+
+    
     pos_array = pos_array+pos_noise
     return list(pos_array)
 
@@ -37,11 +49,12 @@ if __name__== "__main__":
         Link_Pos_6 = ast.literal_eval(row.link_pos_6)
         Link_Pos_7 = ast.literal_eval(row.link_pos_7)
         
-            #print("originate pos:")
-            #print(Link_Pos_6)
-            #print("after adding noise:")
-            #Link_Pos_6 = add_noise(Link_Pos_6)
-            #print(Link_Pos_6)
+        #print("originate pos:")
+        #print(Link_Pos_2)
+        #print("after adding noise:")
+        #Link_Pos_2 = add_noise(Link_Pos_2)
+        #print(Link_Pos_2)
+        #break
         Link_Pos_1 = add_noise(Link_Pos_1)
         Link_Pos_2 = add_noise(Link_Pos_2)
         Link_Pos_3 = add_noise(Link_Pos_3)
